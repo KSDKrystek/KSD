@@ -1,6 +1,5 @@
 
 -- I KNOW THERE IS SOURCE BUT OBFUSCATOR IS BROKEN AND THAT GAME TOO WITH INGAME FUNCTIONS TO BYPASS
-
 local HwidCheck = tostring(game:GetService("RbxAnalyticsService"):GetClientId())
 local hwidListPosPet = loadstring(game:HttpGet("https://raw.githubusercontent.com/KrystekYTpv/AJOVFusfvboasjfbosfpoazsfnasfafa/main/hwidListPosPet.lua"))()
 
@@ -158,14 +157,14 @@ RebirthSection1:NewToggle("Auto Rebirth", "Auto Rebirth", function(autorebirthbe
     while wait(1) and getgenv().AutoRebirthBetter1 do
         local MaxLevel = game:GetService("Players").LocalPlayer.PlayerGui.Notifications.Level.Text
         if MaxLevel == "MAX LEVEL!" then
-            print("MaxLevel")
+            --print("MaxLevel")
             getgenv().InstaDestroy = false
             getgenv().AutoFarmNearest1 = false
             game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
         else
             getgenv().InstaDestroy = true
             getgenv().AutoFarmNearest1 = true
-            print("Kontynuacja")
+            --print("Kontynuacja")
         end
     end
 end)
