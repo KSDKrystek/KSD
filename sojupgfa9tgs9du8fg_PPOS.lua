@@ -434,7 +434,7 @@ end)
 -- CODES SCRIPTS
 local GraczName = game.Players.LocalPlayer.DisplayName
 CodesSection1:NewButton("Check Code Spawn", "", function()
-    if GraczName == "KrystekYT" or GraczName == "KnGraphics" then
+    if GraczName == "KrystekYT" or GraczName == "KnGraphics" or GraczName == "Restio2018" then
         for i,v in pairs(game:GetService("Workspace")["__MAP"].Areas.SpawnWorld:GetDescendants()) do
             if v:IsA("TextLabel") and v.Parent:IsA("SurfaceGui") then
         		print(v.Text)
@@ -444,7 +444,7 @@ CodesSection1:NewButton("Check Code Spawn", "", function()
 end)
 
 CodesSection1:NewButton("Check Code Sea", "", function()
-    if GraczName == "KrystekYT" or GraczName == "KnGraphics" then
+    if GraczName == "KrystekYT" or GraczName == "KnGraphics" or GraczName == "Restio2018" then
         for i,v in pairs(game:GetService("Workspace")["__MAP"].Areas.SeaWorld:GetDescendants()) do
             if v:IsA("TextLabel") and v.Parent:IsA("SurfaceGui") then
         		print(v.Text)
@@ -454,7 +454,7 @@ CodesSection1:NewButton("Check Code Sea", "", function()
 end)
 
 CodesSection2:NewButton("Check Code Spawn and Redeem", "", function()
-    if GraczName == "KrystekYT" or GraczName == "KnGraphics" then
+    if GraczName == "KrystekYT" or GraczName == "KnGraphics" or GraczName == "Restio2018" then
         for i,v in pairs(game:GetService("Workspace")["__MAP"].Areas.SpawnWorld:GetDescendants()) do
             if v:IsA("TextLabel") and v.Parent:IsA("SurfaceGui") then
         		print(v.Text)
@@ -465,7 +465,7 @@ CodesSection2:NewButton("Check Code Spawn and Redeem", "", function()
 end)
 
 CodesSection2:NewButton("Check Code Sea and Redeem", "", function()
-    if GraczName == "KrystekYT" or GraczName == "KnGraphics" then
+    if GraczName == "KrystekYT" or GraczName == "KnGraphics" or GraczName == "Restio2018" then
         for i,v in pairs(game:GetService("Workspace")["__MAP"].Areas.SeaWorld:GetDescendants()) do
             if v:IsA("TextLabel") and v.Parent:IsA("SurfaceGui") then
         		print(v.Text)
