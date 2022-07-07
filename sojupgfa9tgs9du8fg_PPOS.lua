@@ -9,8 +9,8 @@ if table.find(hwidListPosPet,HwidCheck) then
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Pet Posse By KSD", "DarkTheme")
 
-if GlownyLoop then
-    GlownyLoop:Disconnect()
+if LoopInsta then
+    getgenv().LoopInsta:Disconnect()
 end
 
 -- UPPER TABS
@@ -29,6 +29,7 @@ CreditsSection3:NewLabel("Gigant#0001")
 
 -- MAIN TABS
 local FarmingTab = Window:NewTab("Farming")
+--local AutoFullSection1 = FarmingTab:NewSection("FULL AUTOMATIC")
 local InstabreakSection1 = FarmingTab:NewSection("Insta Break")
 local FarmingSection1 = FarmingTab:NewSection("Farming")
 local RebirthSection1 = FarmingTab:NewSection("Auto Rebirth")
@@ -73,7 +74,7 @@ end)
 
 
 
-local function CheckArena()
+function CheckArena()
         for i,v in pairs(game:GetService("Workspace")["__MAP"].Areas:GetChildren()) do
             getgenv().ArenaInstaBreak = v
         end
@@ -87,67 +88,170 @@ end
 
 function InstaBreakLoop()
     if getgenv().InstaDestroy == true then
-        task.wait(0.5)
-        local ListaButton = game:GetService("Players").LocalPlayer.PlayerGui.Buttons
-        ListaButton.ChildAdded:connect(function(button)
-            getgenv().ButtonNumber = button
-        end)
         
         if ButtonNumber == nil then
             return wait()
         else
             if not workspace.__THINGS.Coins[tostring(ArenaInstaBreak)]:FindFirstChild(tostring(ButtonNumber)) or not workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]:FindFirstChild("Coin") then
                 getgenv().ButtonNumber = nil
+            else
+                local t1 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)].Coin
+                local t2 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]
+                workspace.__THINGS.__REMOTES.clickedButton:FireServer(t1, t2)
             end
-            local t1 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)].Coin
-            local t2 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]
-            workspace.__THINGS.__REMOTES.clickedButton:FireServer(t1, t2)
         end
     end
 end
 
-function AutoFarmNearestFunction()
-    if getgenv().AutoFarmNearest1 == true then
-        local a = closestCoin
-        local plrArea = game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value
-        repeat
-            wait()
-            if a and a:FindFirstChild("Coin") and a.Coin:FindFirstChild("ClickDetector") then
-                fireclickdetector(a.Coin.ClickDetector)
+
+
+-- FARMING SCRIPTS
+--AutoFullSection1:NewToggle("Auto Rebirth/Farm/Insta", "Special Easy function", function(autofullfarm)
+--    if autofullfarm == true then
+--        getgenv().AutomaticFarmFull = true
+--        coroutine.resume(coroutine.create(function() FullToggleUpdateOn() end))
+--    else
+--        getgenv().AutomaticFarmFull = false
+--        coroutine.resume(coroutine.create(function() FullToggleUpdateOff() end))
+--    end
+--    
+--    while wait(1) and getgenv().AutomaticFarmFull == true do
+--        local MaxLevel = game:GetService("Players").LocalPlayer.PlayerGui.Notifications.Level.Text
+--        if MaxLevel == "MAX LEVEL!" then
+--            coroutine.resume(coroutine.create(function() RebirthFarmingToggleUpdate() end))
+--        else
+--            coroutine.resume(coroutine.create(function() ContinueFarmingToggleUpdate() end))
+--        end
+--    end
+--end)
+
+
+function InstaBRAKE()
+    if getgenv().InstaDestroy1 == true then
+        getgenv().LoopInsta = game:GetService"RunService".RenderStepped:Connect(function()
+            if ButtonNumber == nil then
+                return wait()
+            else
+                if not workspace.__THINGS.Coins[tostring(ArenaInstaBreak)]:FindFirstChild(tostring(ButtonNumber)) or not workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]:FindFirstChild("Coin") then
+                    getgenv().ButtonNumber = nil
+                else
+                    local t1 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)].Coin
+                    local t2 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]
+                    workspace.__THINGS.__REMOTES.clickedButton:FireServer(t1, t2)
+                end
             end
-        until a == nil or a:FindFirstChild("Coin") == nil or AutoFarmNearest1 == false
-        lastCoin = math.huge
+        end)
     end
 end
 
--- FARMING SCRIPTS
-InstabreakSection1:NewToggle("Instant Destroy", "Super Fast Farming", function(instadestroy)
+InstabreakSection1:NewDropdown("Select Insta Mode", "Select Insta mode to farm", {"One", "All", "Actual Coins"}, function(instaoption)
+    if instaoption then
+        getgenv().InstaSelectedOption = instaoption
+    end
+end)
+
+
+getgenv().InstaDestroything = false
+local InstaFarming = InstabreakSection1:NewToggle("Instant Destroy", "Super Fast Farming", function(instadestroy)
+    getgenv().InstaDestroything = instadestroy
     if instadestroy == true then
-        getgenv().InstaDestroy = true
+        getgenv().InstaDestroy1 = true
     else
-        getgenv().InstaDestroy = false
+        getgenv().LoopInsta:Disconnect()
+        getgenv().InstaDestroy1 = false
+    end
+
+    local ListaButton = game:GetService("Players").LocalPlayer.PlayerGui.Buttons
+    ListaButton.ChildAdded:connect(function(button)
+        coroutine.resume(coroutine.create(function() CheckArena() end))
+        getgenv().ButtonNumber = button
+    end)
+    
+    if getgenv().InstaSelectedOption == "All" then
+        while task.wait() and getgenv().InstaDestroy1 == true do
+            for _,v in pairs(game:GetService("Workspace")["__THINGS"].Coins[tostring(ArenaInstaBreak)]:GetChildren()) do
+                if v:FindFirstChild('Coin') then
+                    local args = {
+                        [1] = workspace["__THINGS"].Coins[tostring(ArenaInstaBreak)][v.Name].Coin,
+                        [2] = workspace["__THINGS"].Coins[tostring(ArenaInstaBreak)][v.Name],
+                    }
+                    workspace["__THINGS"]["__REMOTES"].clickedButton:FireServer(unpack(args))   
+                    task.wait()
+                end
+            end
+        end
+    
+    elseif getgenv().InstaSelectedOption == "One" then
+        if getgenv().InstaDestroy1 == true then
+            getgenv().LoopInsta = game:GetService"RunService".RenderStepped:Connect(function()
+                if ButtonNumber == nil then
+                    return wait()
+                else
+                    if not workspace.__THINGS.Coins[tostring(ArenaInstaBreak)]:FindFirstChild(tostring(ButtonNumber)) or not workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]:FindFirstChild("Coin") then
+                        getgenv().ButtonNumber = nil
+                    else
+                        local t1 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)].Coin
+                        local t2 = workspace.__THINGS.Coins[tostring(ArenaInstaBreak)][tostring(ButtonNumber)]
+                        workspace.__THINGS.__REMOTES.clickedButton:FireServer(t1, t2)
+                    end
+                end
+            end)
+        end
+        
+    elseif getgenv().InstaSelectedOption == "Actual Coins" then
+        while task.wait() and getgenv().InstaDestroy1 == true do
+            for _,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Buttons:GetChildren()) do
+                local args = {
+                    [1] = workspace["__THINGS"].Coins[tostring(ArenaInstaBreak)][v.Name].Coin,
+                    [2] = workspace["__THINGS"].Coins[tostring(ArenaInstaBreak)][v.Name],
+                }
+                workspace["__THINGS"]["__REMOTES"].clickedButton:FireServer(unpack(args))   
+                task.wait()
+            end
+        end
     end
 end)
 
 
 
-FarmingSection1:NewToggle("Autofarm", "AutoFarming Coins and Exp", function(autofarmnearest)
+FarmingSection1:NewDropdown("Select Farm Mode", "Select Farm mode to farm", {"Normal", "Multi Target (In Progress)"}, function(farmoption)
+    if farmoption then
+        getgenv().FarmSelectedOption = farmoption
+    end
+end)
+
+
+
+getgenv().autofarmnearestthing = false
+local FarmingToggle = FarmingSection1:NewToggle("Autofarm", "AutoFarming Coins and Exp", function(autofarmnearest)
+    getgenv().autofarmnearestthing = autofarmnearest
     if autofarmnearest == true then
         getgenv().AutoFarmNearest1 = true
     else
         getgenv().AutoFarmNearest1 = false
     end
     
-    repeat
-    task.wait(1)
-        AutoFarmNearestFunction()
-        getgenv().AutoFarmNearest1 = true
-    until getgenv().AutoFarmNearest1 == false
+    if getgenv().FarmSelectedOption == "Normal" then
+        while task.wait(0.5) and getgenv().AutoFarmNearest1 == true do
+            local a = closestCoin
+            local plrArea = game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value
+            repeat
+                wait()
+                if a and a:FindFirstChild("Coin") and a.Coin:FindFirstChild("ClickDetector") then
+                    fireclickdetector(a.Coin.ClickDetector)
+                end
+            until a == nil or a:FindFirstChild("Coin") == nil or AutoFarmNearest1 == false
+            lastCoin = math.huge
+        end
+    elseif getgenv().FarmSelectedOption == "Multi Target" then
+        
+    end
 end)
 
 
-
-RebirthSection1:NewToggle("Auto Rebirth", "Auto Rebirth", function(autorebirthbetter)
+getgenv().autorebirthbetterthing = false
+local FarmingRebirth = RebirthSection1:NewToggle("Auto Rebirth", "Auto Rebirth", function(autorebirthbetter)
+    getgenv().autorebirthbetterthing = autorebirthbetter
     if autorebirthbetter == true then
         getgenv().AutoRebirthBetter1 = true
     else
@@ -157,28 +261,50 @@ RebirthSection1:NewToggle("Auto Rebirth", "Auto Rebirth", function(autorebirthbe
     while wait(1) and getgenv().AutoRebirthBetter1 do
         local MaxLevel = game:GetService("Players").LocalPlayer.PlayerGui.Notifications.Level.Text
         if MaxLevel == "MAX LEVEL!" then
-            --print("MaxLevel")
-            getgenv().InstaDestroy = false
-            getgenv().AutoFarmNearest1 = false
+            if getgenv().AutoFarmNearest1 == true or getgenv().InstaDestroy1 == true then
+                coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
+                coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
+            end
+            wait(1)
             game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
         else
-            getgenv().InstaDestroy = true
-            getgenv().AutoFarmNearest1 = true
-            --print("Kontynuacja")
+            if getgenv().AutoFarmNearest1 == false or getgenv().InstaDestroy1 == false then
+                coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", true) end))
+                coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", true) end))
+            end
         end
     end
 end)
 
+-- FUNKCJE FULL AUTO
+function RebirthOsobnyOn()
+    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
+    coroutine.resume(coroutine.create(function() FarmingRebirth:UpdateToggle("Auto Rebirth", true) end))
+    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
+end
 
-getgenv().GlownyLoop = game:GetService"RunService".RenderStepped:Connect(function()
-    if getgenv().InstaDestroy == true then
-        CheckArena()
-        InstaBreakLoop()
-    end
-    --if AutoFarmNearest1 == true then
-    --    AutoFarmNearestFunction()
-    --end
-end)
+function FullToggleUpdateOn()
+    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", true) end))
+    coroutine.resume(coroutine.create(function() FarmingRebirth:UpdateToggle("Auto Rebirth", true) end))
+    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", true) end))
+end
+
+function FullToggleUpdateOff()
+    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
+    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
+    coroutine.resume(coroutine.create(function() FarmingRebirth:UpdateToggle("Auto Rebirth", false) end))
+end
+
+function ContinueFarmingToggleUpdate()
+    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", true) end))
+    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", true) end))
+end
+
+function RebirthFarmingToggleUpdate()
+    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
+    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
+    coroutine.resume(coroutine.create(function() FarmingRebirth:UpdateToggle("Auto Rebirth", true) end))
+end
 
 
 -- EGGS SCRIPTS
@@ -257,15 +383,15 @@ MiscSection1:NewToggle("Auto Redeem Rewards", "Auto Redeem Rewards", function(re
         for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.ExclusiveShop.Frame.Container.Gifts:GetDescendants()) do
             if v:IsA("TextLabel") and v.Name == "Time" then
                 if v.Text == "Claim" then
-                    getgenv().AutoRebirthBetter1 = false
-                    getgenv().AutoFarmNearest1 = false
-                    getgenv().InstaDestroy = false
+                    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
+                    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
+                    coroutine.resume(coroutine.create(function() FarmingRebirth:UpdateToggle("Auto Rebirth", false) end))
                     wait(2)
                     workspace.__THINGS.__REMOTES.claimGift:InvokeServer(tostring(v.Parent.Parent))
                     wait(1)
-                    getgenv().AutoRebirthBetter1 = true
-                    getgenv().AutoFarmNearest1 = true
-                    getgenv().InstaDestroy = true
+                    coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", true) end))
+                    coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", true) end))
+                    coroutine.resume(coroutine.create(function() FarmingRebirth:UpdateToggle("Auto Rebirth", true) end))
                 end
             end
         end
