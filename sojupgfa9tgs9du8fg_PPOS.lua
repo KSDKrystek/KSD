@@ -261,17 +261,25 @@ local FarmingRebirth = RebirthSection1:NewToggle("Auto Rebirth", "Auto Rebirth",
     while wait(1) and getgenv().AutoRebirthBetter1 do
         local MaxLevel = game:GetService("Players").LocalPlayer.PlayerGui.Notifications.Level.Text
         if MaxLevel == "MAX LEVEL!" then
-            if getgenv().AutoFarmNearest1 == true or getgenv().InstaDestroy1 == true then
-                coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
-                coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
-            end
-            wait(1)
+            repeat
+            wait(0.5)
+            getgenv().InstaDestroy1 = false
+            getgenv().AutoFarmNearest1 = false
+            coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", false) end))
+            coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", false) end))
+            until getgenv().InstaDestroy1 == false and getgenv().AutoFarmNearest1 == false
+            wait(1.5)
+            game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
+            game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
             game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
         else
-            if getgenv().AutoFarmNearest1 == false or getgenv().InstaDestroy1 == false then
-                coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", true) end))
-                coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", true) end))
-            end
+            repeat
+            wait(0.5)
+            getgenv().InstaDestroy1 = false
+            getgenv().AutoFarmNearest1 = false
+            coroutine.resume(coroutine.create(function() FarmingToggle:UpdateToggle("Autofarm", true) end))
+            coroutine.resume(coroutine.create(function() InstaFarming:UpdateToggle("Instant Destroy", true) end))
+            until getgenv().InstaDestroy1 == true and getgenv().AutoFarmNearest1 == true
         end
     end
 end)
