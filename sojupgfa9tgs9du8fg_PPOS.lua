@@ -6,9 +6,22 @@ if table.find(hwidListPosPet,HwidCheck) then
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Pet Posse By KSD", "DarkTheme")
 
+-- UPPER AUTO FUNCTIONS
 if GlownyLoop then
     GlownyLoop:Disconnect()
 end
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+local ListaButton = game:GetService("Players").LocalPlayer.PlayerGui.Buttons
+    ListaButton.ChildAdded:connect(function(button)
+        getgenv().ButtonNumber = button
+    end)
 
 -- UPPER TABS
 local CreditsTab = Window:NewTab("Credits")
@@ -71,11 +84,6 @@ local function CheckArena()
 end
 
 function InstaBreakLoop()
-    local ListaButton = game:GetService("Players").LocalPlayer.PlayerGui.Buttons
-    ListaButton.ChildAdded:connect(function(button)
-        getgenv().ButtonNumber = button
-    end)
-    
     if ButtonNumber == nil then
         return wait()
     else
@@ -117,13 +125,8 @@ InstabreakSection1:NewToggle("Fast Break", "Faster Farming", function(instadestr
     --end
     
     while task.wait(0.5) and getgenv().InstaDestroy == true do
-        for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Buttons:GetDescendants()) do
-            if v:IsA("ImageButton") and v.Parent:IsA("Frame") then
-                coroutine.resume(coroutine.create(function() CheckArena() end))
-                firesignal(v.MouseButton1Down)
-                InstaBreakLoop()
-            end
-        end
+        coroutine.resume(coroutine.create(function() CheckArena() end))
+        coroutine.resume(coroutine.create(function() InstaBreakLoop() end))
     end
 end)
 
