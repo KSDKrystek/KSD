@@ -267,6 +267,7 @@ MiscSection1:NewToggle("Auto Redeem Rewards", "Auto Redeem Rewards", function(re
         for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.ExclusiveShop.Frame.Container.Gifts:GetDescendants()) do
             if v:IsA("TextLabel") and v.Name == "Time" then
                 if v.Text == "Claim" then
+                    workspace.__THINGS.__REMOTES.buyEgg:InvokeServer("Summer Egg", nil, "Gift")
                     workspace.__THINGS.__REMOTES.claimGift:InvokeServer(tostring(v.Parent.Parent))
                 end
             end
@@ -311,7 +312,7 @@ SellSection1:NewToggle("Auto Merchant Sell", "Sell Selected Pets", function(merc
 
 end)
 
-SellSection2:NewToggle("Hide 2/3/4/5/6lvl Pets", "Better For Selling Pets", function(hidehighlvlpets)
+SellSection2:NewToggle("Hide Huge/2/3/4/5/6lvl Pets", "Better For Selling Pets", function(hidehighlvlpets)
     if hidehighlvlpets == true then
         getgenv().HideLvlPets1 = true
     else
@@ -321,8 +322,8 @@ SellSection2:NewToggle("Hide 2/3/4/5/6lvl Pets", "Better For Selling Pets", func
     if getgenv().HideLvlPets1 == true then
         while wait(1) and getgenv().HideLvlPets1 == true do
             for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Frame.Container.Pets:GetDescendants()) do
-                if v.Name == "Level" then
-                    if v.Text == "Lvl 2" or v.Text == "Lvl 3" or v.Text == "Lvl 4" or v.Text == "Lvl 5" or v.Text == "Lvl 6" then
+                if v.Name == "Level" or v.Name == "Damage" then
+                    if v.Text == "Lvl 2" or v.Text == "Lvl 3" or v.Text == "Lvl 4" or v.Text == "Lvl 5" or v.Text == "Lvl 6" or v.Text == "???" then
                         v.Parent.Visible = false
                     end
                 end
@@ -330,8 +331,8 @@ SellSection2:NewToggle("Hide 2/3/4/5/6lvl Pets", "Better For Selling Pets", func
         end
     else
         for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Frame.Container.Pets:GetDescendants()) do
-            if v.Name == "Level" then
-                if v.Text == "Lvl 2" or v.Text == "Lvl 3" or v.Text == "Lvl 4" or v.Text == "Lvl 5" or v.Text == "Lvl 6" then
+            if v.Name == "Level" or v.Name == "Damage" then
+                if v.Text == "Lvl 2" or v.Text == "Lvl 3" or v.Text == "Lvl 4" or v.Text == "Lvl 5" or v.Text == "Lvl 6" or v.Text == "???" then
                     v.Parent.Visible = true
                 end
             end
