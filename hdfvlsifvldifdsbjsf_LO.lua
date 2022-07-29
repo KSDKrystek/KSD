@@ -4,7 +4,7 @@ if game.PlaceId == 6284583030 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/siufvosz8fsttv89sy8_PXLOD.lua", true))()
 elseif game.PlaceId == 10321372166 then
     print("Finded Game: Hardcore Pet Simulator X")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/siufvosz8fsttv89sy8_PXLOD.lua", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/aisfaoisfasfponjpasonfa_PXH.lua", true))()
 elseif game.PlaceId == 7722306047 then
     print("Finded Game: Pet Simulator X Trade Plaza")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/siufvosz8fsttv89sy8_PXLOD.lua", true))()
