@@ -32,6 +32,9 @@ elseif game.PlaceId == 606849621 then
 elseif game.PlaceId == 4787629450 then
     print("Finded Game: Booga Booga Classic")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/ajf8uyivsidfsdofhi_BBC.lua", true))()
+elseif game.PlaceId == 7606302010 then
+    print("Finded Game: YoYo Simulator")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/asiupiasufgaofhoasif_YOS.lua", true))()
 else
     print("Game not supported")
 end
