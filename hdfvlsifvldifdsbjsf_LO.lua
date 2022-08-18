@@ -35,6 +35,9 @@ elseif game.PlaceId == 4787629450 then
 elseif game.PlaceId == 7606302010 then
     print("Finded Game: YoYo Simulator")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/asiupiasufgaofhoasif_YOS.lua", true))()
+elseif game.PlaceId == 7305309231 then
+    print("Finded Game: Taxi Boss")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/aslhvaslifasfasfasjkfbasjk_TAXB.lua", true))()
 else
     print("Game not supported")
 end
