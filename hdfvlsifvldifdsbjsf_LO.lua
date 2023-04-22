@@ -2,15 +2,15 @@
 if game.PlaceId == 6284583030 then
     print("Finded Game: Pet Simulator X")
     getgenv().CheckGame = "Pet Simulator X"
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/siufvosz8fsttv89sy8_PXLOD.lua", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/sjubfloiszudfglzikxdfjhglbd_PX.lua", true))()
 elseif game.PlaceId == 10321372166 then
     print("Finded Game: Hardcore Pet Simulator X")
     getgenv().CheckGame = "Hardcore Pet Simulator X"
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/aisfaoisfasfponjpasonfa_PXH.lua", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/sjubfloiszudfglzikxdfjhglbd_PX.lua", true))()
 elseif game.PlaceId == 7722306047 then
     print("Finded Game: Pet Simulator X Trade Plaza")
     getgenv().CheckGame = "Pet Simulator X Trade Plaza"
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/siufvosz8fsttv89sy8_PXLOD.lua", true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KSDKrystek/KSD/main/sjubfloiszudfglzikxdfjhglbd_PX.lua", true))()
 elseif game.PlaceId == 7336128600 then
     print("Finded Game: Pet Legends")
     getgenv().CheckGame = "Pet Legends"

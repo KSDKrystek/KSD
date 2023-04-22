@@ -1,1 +1,0 @@
-require(game:GetService("ReplicatedStorage").Framework.Client["5 | Message"]).New("Thanks for buying, \nbut in 11.11.2022 Script is \nDISCONTINUED and Closed. \nSorry, !KrystekYT#8687")
